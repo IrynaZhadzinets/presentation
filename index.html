@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1><strong>Type</strong>Script</h1>
+					<img src='./image/city.png' alt='TypeScript' />
+				</section>
+				<section>
+					<h3>What is TypeScript?</h3>
+					<img class='plain' src='./image/TS&JS.png' alt='JS&TS' />
+				</section>
+				<section>
+					<h3>TypeScript inside</h3>
+					<img class='plain' src='./image/TSInside.png' alt='JS&TS' />
+				</section>
+				<section>
+					<h3>Typings in Typescript</h3>
+					<img class='plain' src='./image/dynamic&static.png' alt='JS&TS' />
+				</section>
+				<section>
+					<section>
+						<h3>Basic Types</h3>
+						<tr>
+							<td>
+								<ul class = 'right'>
+									<li>Boolean</li>
+									<li>Number</li>
+									<li>String</li>
+									<li>Array</li>
+									<li>Tuple</li>
+								</ul>
+							</td>
+							<td>
+								<ul class = 'right'>
+									<li>Enum</li>
+									<li>Any</li>
+									<li>Void</li>
+									<li>Null and Undefined</li>
+									<li>Never</li>
+								</ul>
+							</td>
+						</tr>
+					</section>
+					<section>
+						<h3>Boolean, Number, String</h3>
+						<pre>
+							<code data-trim data-noescape>
+								// Boolean
+								let isEnabled = true;
+								let isAlive: boolean = false;
+
+								// Number
+								let decimal: number = 6;
+								let hex: number = 0xf00d;
+								let binary: number = 0b1010;
+								let octal: number = 0o744;
+
+								// String
+								let firstName: string = "Tom";
+								let lastName = 'Johns';
+								let info: string = `First Name ${firstName} Last Name: ${lastName}`;
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Array, Tuple</h3>
+						<pre>
+							<code data-trim data-noescape>
+								// Array
+								let list: number[] = [10, 20, 30];
+								let names: Array&ltstring&gt = ["Tom", "Bob", "Alice"];
+		
+								// Tuple
+								let userInfo: [string, number];
+								userInfo = ["Tom", 28];
+								userInfo = [28, "Tom"]; // Error
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Enum, Any</h3>
+						<pre>
+							<code data-trim data-noescape>
+								// Enum
+								enum Season { Winter, Spring, Summer, Autumn };
+								enum Season { Winter=0, Spring=1, Summer=2, Autumn=3 };   // default
+								enum Season { Winter=5, Spring, Summer, Autumn };         // 5, 6, 7, 8
+								enum Season { Winter=4, Spring=8, Summer=16, Autumn=32 }; // 4, 8, 16, 32
+
+								enum Season { Winter, Spring, Summer, Autumn };
+								let current: string = Season[2];  // 2 - the numeric value of Summer
+								console.log(current);             // Summer
+
+								// Any
+								let someVar: any = "hello";
+								console.log(someVar);   // someVar - string
+								someVar = 20;
+								console.log(someVar);   // someVar - number
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Void, Null, Undefined</h3>
+						<pre>
+							<code data-trim data-noescape>
+								// Void
+								function voidValue(): void {
+									// some code without return
+								}
+
+								// Null
+								function nullValue(): null {
+									// some code
+									return null;
+								}
+
+								// Undefined
+								function undefinedValue(): undefined {
+									// some code
+									return;
+								}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Never</h3>
+						<pre>
+							<code data-trim data-noescape>
+								// Function returning never must have unreachable and point
+								function error(message: string): never {
+									throw new Error(message);
+								}
+
+								// Inferred return type is never
+								function fall() {
+									return error('Something failed');
+								}
+
+								// Function returning never must have unreachable and point
+								function infiniteLoop(): never {
+									while (true) {
+									}
+								}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Two or more types, let</h3>
+						<pre>
+							<code data-trim data-noescape>
+								let something: number | string | boolean = 'first';
+								something = 10;
+								something = 'false';
+
+								let age = 21;
+								age = '22'; // Error
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section>
+					<h3>Interfaces</h3>
+					<pre>
+						<code data-trim data-noescape>
+							interface Block {
+								width: number;
+								height: number;
+							}
+	
+							let firstBlock: Block = { width: 10, height: 20 };
+							let secondBlock: Block = { width: 10, radius: 3 }; // Error
+								
+							interface BlockTwo {
+								readonly width: number;
+								height?: number;
+								radius?: number;
+							}
+	
+							let thirdBlock: BlockTwo = { width: 10, radius: 3 };
+							thirdBlock.width = 50; // Error
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Classes</h3>
+					<pre>
+						<code data-trim data-noescape>
+							class Greeter {
+								greeting: string;
+								constructor(message: string) {
+									this.greeting = message;
+								}
+								greet() {
+									return "Hello, " + this.greeting;
+								}
+							}
+							 
+							let greeter = new Greeter("world");
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Classes: inheritance</h3>
+					<pre>
+						<code data-trim data-noescape>
+							class Animal {
+								name: string;
+								constructor(theName: string) { this.name = theName; }
+								move(distanceInMeters: number = 0) {
+									console.log(`${this.name} moved ${distanceInMeters}m.`);
+								}
+							}
+								 
+							class Snake extends Animal {
+								constructor(name: string) { super(name); }
+								move(distanceInMeters = 5) {
+									console.log("Slithering...");
+									super.move(distanceInMeters);
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Classes and interfaces</h3>
+					<pre>
+						<code data-trim data-noescape>
+							interface Pizza {
+								name: string;
+								toppings: string[];
+							}
+
+							class PizzaMaker {
+								static create(event: Pizza) {
+								return {
+									name: event.name,
+									toppings: event.toppings
+								  };
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<section>
+						<h3>Classes modifiers</h3>
+						<ul>
+							<li>public (default)</li>
+							<li>private</li>
+							<li>protected</li> 
+							<li>readonly</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Classes: public, private modifiers</h3>
+						<pre>
+							<code data-trim data-noescape>
+								// public
+								class Animal {
+									public name: string;
+									public constructor(theName: string) { this.name = theName; }
+									public move(distanceInMeters: number) {
+										console.log(`${this.name} moved ${distanceInMeters}m.`);
+									}
+								}
+
+								// private
+								class Animal {
+									private name: string;
+									constructor(theName: string) { this.name = theName; }
+								}
+								 
+								new Animal("Cat").name; // Error: 'name' is private;
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Classes: protected modifiers</h3>
+						<pre>
+							<code data-trim data-noescape>
+								// protected
+								class Person {
+								    protected name: string;
+								    constructor(name: string) { this.name = name; }
+								}
+									 
+								class Employee extends Person {
+								    private department: string;
+								 
+								    constructor(name: string, department: string) {
+								        super(name);
+								        this.department = department;
+								    }
+									 
+								    public getElevatorPitch() {
+								        return `Hello, my name is ${this.name} and I work in ${this.department}.`;
+								    }
+								}
+									 
+								let howard = new Employee("Howard", "Sales");
+								console.log(howard.getElevatorPitch());
+								console.log(howard.name); // Error
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section>
+					<h3>Function: JS & TS</h3>
+					<pre>
+						<code data-trim data-noescape>
+							// Named_function
+							function add(x, y) {
+								return x + y;
+							}
+							
+							// Anonymous_function
+							let myAdd = function(x, y) { return x + y; };
+
+							function add(x: number, y: number): number {
+								return x + y;
+							}
+							
+							let myAdd = function(x: number, y: number): number { return x + y; };
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>TypeScript advantages</h3>
+					<ul>
+						<li>Strong typing</li>
+						<li>OOP (Object Oriented Programming)</li>
+						<li>Superset Javascript</li> 
+						<li>Development of complex solutions</li>
+					</ul>
+				</section>
+				<section>
+					<h3>TypeScript disadvantages</h3>
+					<ul>
+						<li>DefinitelyTyped</li>
+						<li>.ts .d.ts .map</li>
+						<li>Implicit static typing (Any)</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Thank you for your attention</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
