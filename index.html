@@ -246,9 +246,10 @@
 					</pre>
 				</section>
 				<section>
-					<h3>Classes and interfaces</h3>
-					<pre>
-						<code data-trim data-noescape>
+					<section>
+						<h3>Classes and interfaces</h3>
+						<pre>
+							<code data-trim data-noescape>
 							interface Pizza {
 								name: string;
 								toppings: string[];
@@ -262,8 +263,28 @@
 								  };
 								}
 							}
-						</code>
-					</pre>
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Classes and interfaces</h3>
+						<pre>
+							<code data-trim data-noescape>
+								interface ClockInterface {
+									currentTime: Date;
+									setTime(d: Date);
+								}
+								
+								class Clock implements ClockInterface {
+									currentTime: Date;
+									setTime(d: Date) {
+										this.currentTime = d;
+									}
+									constructor(h: number, m: number) { }
+								}
+							</code>
+						</pre>
+					</section>
 				</section>
 				<section>
 					<section>
